@@ -6,6 +6,7 @@ React + TypeScript dashboard for recording Bhagavad Gita classes. The interface 
 
 1. Create a Supabase project.
 2. In the Supabase SQL Editor, run [`supabase/schema.sql`](./supabase/schema.sql).
+   For an existing project created with the earlier schema, also run [`20260914_make_student_count_optional.sql`](./supabase/migrations/20260914_make_student_count_optional.sql).
 3. Copy `.env.example` to `.env.local`, then set the project's URL and **anon** key from Project Settings → API.
 4. Start the app with `npm run dev`.
 

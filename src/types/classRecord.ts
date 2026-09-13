@@ -5,7 +5,7 @@ export interface ClassRecord {
   shlokaFrom: string;
   shlokaTo: string;
   albumLink: string;
-  studentCount: number;
+  studentCount: number | null;
 }
 
 export interface CreateClassRecordInput {
@@ -14,7 +14,7 @@ export interface CreateClassRecordInput {
   shlokaFrom: string;
   shlokaTo: string;
   albumLink: string;
-  studentCount: number;
+  studentCount: number | null;
 }
 
 export type UpdateClassRecordInput = CreateClassRecordInput;

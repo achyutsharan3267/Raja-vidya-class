@@ -60,12 +60,8 @@ export function sortClassRecords(
     if (sortField === "date") {
       return a.date.localeCompare(b.date);
     }
-    return a.studentCount - b.studentCount;
+    return (a.studentCount ?? -1) - (b.studentCount ?? -1);
   });
 
   return sortDirection === "desc" ? sorted.reverse() : sorted;
-}
-
-export function getUniqueVenues(records: ClassRecord[]): string[] {
-  return [...new Set(records.map((record) => record.venue))].sort();
 }

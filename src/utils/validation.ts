@@ -28,9 +28,7 @@ export function validateClassForm(values: ClassFormValues): ClassFormErrors {
     errors.shlokaTo = "Shloka to is required";
   }
 
-  if (!values.studentCount.trim()) {
-    errors.studentCount = "Student count is required";
-  } else {
+  if (values.studentCount.trim()) {
     const count = Number(values.studentCount);
     if (Number.isNaN(count) || count < 0) {
       errors.studentCount = "Student count must be 0 or greater";

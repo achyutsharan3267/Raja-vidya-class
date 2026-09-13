@@ -3,6 +3,7 @@ import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { VENUE_OPTIONS } from "@/constants/venues";
 import type { ClassRecord } from "../../types/classRecord";
 import {
   hasFormErrors,
@@ -34,7 +35,7 @@ function recordToFormValues(record: ClassRecord): ClassFormValues {
     shlokaFrom: record.shlokaFrom,
     shlokaTo: record.shlokaTo,
     albumLink: record.albumLink,
-    studentCount: String(record.studentCount),
+    studentCount: record.studentCount === null ? "" : String(record.studentCount),
   };
 }
 
@@ -152,17 +153,22 @@ export function ClassFormModal({
 
             <div className="form-field form-field--full">
               <Label htmlFor={`${formId}-venue`}>Venue</Label>
-              <Input
+              <select
                 id={`${formId}-venue`}
-                type="text"
-                placeholder="ISKCON Delhi"
                 value={values.venue}
                 onChange={(event) => handleChange("venue", event.target.value)}
                 aria-invalid={Boolean(errors.venue)}
                 aria-describedby={
                   errors.venue ? `${formId}-venue-error` : undefined
                 }
-              />
+              >
+                <option value="">Select a venue</option>
+                {VENUE_OPTIONS.map((venue) => (
+                  <option key={venue} value={venue}>
+                    {venue}
+                  </option>
+                ))}
+              </select>
               {errors.venue && (
                 <span
                   id={`${formId}-venue-error`}

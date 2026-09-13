@@ -2,7 +2,6 @@ import { useMemo, useState } from "react";
 import { ClassFormModal } from "../components/ClassForm/ClassFormModal";
 import { ClassRecordFilters } from "../components/ClassRecords/ClassRecordFilters";
 import { ClassRecordsTable } from "../components/ClassRecords/ClassRecordsTable";
-import { Dashboard } from "../components/Dashboard/Dashboard";
 import { DeleteConfirmDialog } from "../components/DeleteConfirm/DeleteConfirmDialog";
 import { EmptyState } from "../components/EmptyState/EmptyState";
 import { Header } from "../components/Layout/Header";
@@ -16,9 +15,9 @@ import type {
 } from "../types/classRecord";
 import {
   filterClassRecords,
-  getUniqueVenues,
   sortClassRecords,
 } from "../utils/filterAndSort";
+import { exportClassRecords } from "../utils/exportClassRecords";
 import type { ClassFormValues } from "../utils/validation";
 
 const defaultFilters: Filters = {
@@ -35,7 +34,7 @@ function formValuesToInput(values: ClassFormValues) {
     shlokaFrom: values.shlokaFrom.trim(),
     shlokaTo: values.shlokaTo.trim(),
     albumLink: values.albumLink.trim(),
-    studentCount: Number(values.studentCount),
+    studentCount: values.studentCount.trim() ? Number(values.studentCount) : null,
   };
 }
 
@@ -53,8 +52,6 @@ export function HomePage() {
 
   const [deleteTarget, setDeleteTarget] = useState<ClassRecord | null>(null);
   const [deleting, setDeleting] = useState(false);
-
-  const venues = useMemo(() => getUniqueVenues(records), [records]);
 
   const filteredRecords = useMemo(() => {
     const filtered = filterClassRecords(records, filters);
@@ -117,11 +114,23 @@ export function HomePage() {
     }
   };
 
+  const handleExport = async () => {
+    if (records.length === 0) return;
+    try {
+      await exportClassRecords(records);
+      showNotification("Class records exported to Excel");
+    } catch {
+      showNotification("Could not export class records", "error");
+    }
+  };
+
   return (
     <div className="page">
-      <Header onAddClick={openAddForm} />
-
-      <Dashboard records={records} />
+      <Header
+        onAddClick={openAddForm}
+        onExportClick={handleExport}
+        exportDisabled={records.length === 0}
+      />
 
       <section className="records-section" aria-label="Class records">
         <div className="records-section__header">
@@ -130,7 +139,6 @@ export function HomePage() {
 
         <ClassRecordFilters
           filters={filters}
-          venues={venues}
           onChange={setFilters}
           onClear={() => setFilters(defaultFilters)}
         />

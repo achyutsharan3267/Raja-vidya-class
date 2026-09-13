@@ -1,17 +1,16 @@
 import { Filter, Search } from "lucide-react";
 import type { ClassRecordFilters as Filters } from "../../types/classRecord";
+import { VENUE_OPTIONS } from "@/constants/venues";
 import "./ClassRecords.css";
 
 interface ClassRecordFiltersProps {
   filters: Filters;
-  venues: string[];
   onChange: (filters: Filters) => void;
   onClear: () => void;
 }
 
 export function ClassRecordFilters({
   filters,
-  venues,
   onChange,
   onClear,
 }: ClassRecordFiltersProps) {
@@ -66,7 +65,7 @@ export function ClassRecordFilters({
             aria-label="Filter by venue"
           >
             <option value="">All Venues</option>
-            {venues.map((venue) => (
+            {VENUE_OPTIONS.map((venue) => (
               <option key={venue} value={venue}>
                 {venue}
               </option>

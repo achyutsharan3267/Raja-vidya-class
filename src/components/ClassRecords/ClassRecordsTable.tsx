@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import type { ClassRecord, SortDirection, SortField } from "../../types/classRecord";
 import { formatDisplayDate, formatShlokaRange } from "../../utils/formatDate";
+import { formatVenue } from "../../utils/venues";
 import {
   Table,
   TableBody,
@@ -118,7 +119,7 @@ export function ClassRecordsTable({
                 <TableCell data-label="Venue">
                   <span className="venue-cell">
                     <MapPin size={14} aria-hidden="true" />
-                    {record.venue}
+                    {formatVenue(record.venue)}
                   </span>
                 </TableCell>
                 <TableCell data-label="Shloka">
@@ -139,7 +140,7 @@ export function ClassRecordsTable({
                     <span className="no-album">No Album</span>
                   )}
                 </TableCell>
-                <TableCell data-label="Students">{record.studentCount}</TableCell>
+                <TableCell data-label="Students">{record.studentCount ?? "—"}</TableCell>
                 <TableCell data-label="Actions">
                   <div className="actions-cell">
                     <Button
@@ -199,7 +200,7 @@ export function ClassRecordsTable({
             <dl className="record-card__details">
               <div>
                 <dt>Venue</dt>
-                <dd>{record.venue}</dd>
+                <dd>{formatVenue(record.venue)}</dd>
               </div>
               <div>
                 <dt>Shloka</dt>
@@ -227,7 +228,7 @@ export function ClassRecordsTable({
               </div>
               <div>
                 <dt>Students</dt>
-                <dd>{record.studentCount}</dd>
+                <dd>{record.studentCount ?? "—"}</dd>
               </div>
             </dl>
           </article>

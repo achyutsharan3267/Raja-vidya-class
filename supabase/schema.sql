@@ -6,7 +6,7 @@ create table if not exists public.class_records (
   shloka_from text not null check (char_length(trim(shloka_from)) > 0),
   shloka_to text not null check (char_length(trim(shloka_to)) > 0),
   album_link text not null default '',
-  student_count integer not null check (student_count >= 0),
+  student_count integer check (student_count is null or student_count >= 0),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );

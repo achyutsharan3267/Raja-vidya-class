@@ -13,7 +13,7 @@ type ClassRecordRow = {
   shloka_from: string;
   shloka_to: string;
   album_link: string;
-  student_count: number;
+  student_count: number | null;
 };
 
 function toRecord(row: ClassRecordRow): ClassRecord {
