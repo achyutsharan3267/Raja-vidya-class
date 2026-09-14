@@ -3,6 +3,7 @@ create table if not exists public.class_records (
   id uuid primary key default gen_random_uuid(),
   date date not null,
   venue text not null check (char_length(trim(venue)) > 0),
+  speaker_name text not null check (char_length(trim(speaker_name)) > 0),
   shloka_from text not null check (char_length(trim(shloka_from)) > 0),
   shloka_to text not null check (char_length(trim(shloka_to)) > 0),
   album_link text not null default '',

@@ -22,6 +22,7 @@ interface ClassFormModalProps {
 const emptyValues: ClassFormValues = {
   date: "",
   venue: "",
+  speakerName: "",
   shlokaFrom: "",
   shlokaTo: "",
   albumLink: "",
@@ -32,6 +33,7 @@ function recordToFormValues(record: ClassRecord): ClassFormValues {
   return {
     date: record.date,
     venue: record.venue,
+    speakerName: record.speakerName,
     shlokaFrom: record.shlokaFrom,
     shlokaTo: record.shlokaTo,
     albumLink: record.albumLink,
@@ -147,6 +149,24 @@ export function ClassFormModal({
               {errors.date && (
                 <span id={`${formId}-date-error`} className="form-field__error">
                   {errors.date}
+                </span>
+              )}
+            </div>
+
+            <div className="form-field">
+              <Label htmlFor={`${formId}-speaker-name`}>Speaker Name</Label>
+              <Input
+                id={`${formId}-speaker-name`}
+                type="text"
+                placeholder="Enter speaker's name"
+                value={values.speakerName}
+                onChange={(event) => handleChange("speakerName", event.target.value)}
+                aria-invalid={Boolean(errors.speakerName)}
+                aria-describedby={errors.speakerName ? `${formId}-speaker-name-error` : undefined}
+              />
+              {errors.speakerName && (
+                <span id={`${formId}-speaker-name-error`} className="form-field__error">
+                  {errors.speakerName}
                 </span>
               )}
             </div>

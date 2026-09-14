@@ -5,6 +5,7 @@ import { ClassRecordsTable } from "../components/ClassRecords/ClassRecordsTable"
 import { DeleteConfirmDialog } from "../components/DeleteConfirm/DeleteConfirmDialog";
 import { EmptyState } from "../components/EmptyState/EmptyState";
 import { Header } from "../components/Layout/Header";
+import { StageManagementChecklist } from "../components/StageManagement/StageManagementChecklist";
 import { useNotification } from "../components/Notification/NotificationContext";
 import { useClassRecords } from "../hooks/useClassRecords";
 import type {
@@ -31,6 +32,7 @@ function formValuesToInput(values: ClassFormValues) {
   return {
     date: values.date,
     venue: values.venue.trim(),
+    speakerName: values.speakerName.trim(),
     shlokaFrom: values.shlokaFrom.trim(),
     shlokaTo: values.shlokaTo.trim(),
     albumLink: values.albumLink.trim(),
@@ -52,6 +54,7 @@ export function HomePage() {
 
   const [deleteTarget, setDeleteTarget] = useState<ClassRecord | null>(null);
   const [deleting, setDeleting] = useState(false);
+  const [activeTab, setActiveTab] = useState<"classes" | "stage">("classes");
 
   const filteredRecords = useMemo(() => {
     const filtered = filterClassRecords(records, filters);
@@ -132,7 +135,24 @@ export function HomePage() {
         exportDisabled={records.length === 0}
       />
 
-      <section className="records-section" aria-label="Class records">
+      <nav className="page-tabs" aria-label="Management sections">
+        <button
+          type="button"
+          className={activeTab === "classes" ? "page-tabs__tab page-tabs__tab--active" : "page-tabs__tab"}
+          onClick={() => setActiveTab("classes")}
+        >
+          Class Records
+        </button>
+        <button
+          type="button"
+          className={activeTab === "stage" ? "page-tabs__tab page-tabs__tab--active" : "page-tabs__tab"}
+          onClick={() => setActiveTab("stage")}
+        >
+          Stage Management
+        </button>
+      </nav>
+
+      {activeTab === "classes" && <section className="records-section" aria-label="Class records">
         <div className="records-section__header">
           <h2 className="records-section__title">Class Records</h2>
         </div>
@@ -169,7 +189,9 @@ export function HomePage() {
             onDelete={setDeleteTarget}
           />
         )}
-      </section>
+      </section>}
+
+      {activeTab === "stage" && <StageManagementChecklist />}
 
       <ClassFormModal
         isOpen={formOpen}

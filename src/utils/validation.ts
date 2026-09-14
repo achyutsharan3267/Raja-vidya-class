@@ -1,6 +1,7 @@
 export interface ClassFormValues {
   date: string;
   venue: string;
+  speakerName: string;
   shlokaFrom: string;
   shlokaTo: string;
   albumLink: string;
@@ -18,6 +19,10 @@ export function validateClassForm(values: ClassFormValues): ClassFormErrors {
 
   if (!values.venue.trim()) {
     errors.venue = "Venue is required";
+  }
+
+  if (!values.speakerName.trim()) {
+    errors.speakerName = "Speaker name is required";
   }
 
   if (!values.shlokaFrom.trim()) {

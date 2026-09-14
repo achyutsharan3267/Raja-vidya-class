@@ -2,6 +2,7 @@ export interface ClassRecord {
   id: string;
   date: string;
   venue: string;
+  speakerName: string;
   shlokaFrom: string;
   shlokaTo: string;
   albumLink: string;
@@ -11,6 +12,7 @@ export interface ClassRecord {
 export interface CreateClassRecordInput {
   date: string;
   venue: string;
+  speakerName: string;
   shlokaFrom: string;
   shlokaTo: string;
   albumLink: string;

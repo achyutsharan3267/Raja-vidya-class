@@ -1,0 +1,60 @@
+.stage-checklist {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.stage-checklist__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(100deg, oklch(0.975 0.035 80), oklch(0.998 0.006 85));
+}
+
+.stage-checklist__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-accent);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.stage-checklist h2 { margin-top: 0.45rem; font-size: 1.25rem; font-weight: 700; }
+.stage-checklist p { margin-top: 0.3rem; color: var(--color-text-muted); font-size: 0.9375rem; }
+
+.stage-checklist__summary {
+  flex-shrink: 0;
+  min-width: 5.5rem;
+  padding: 0.625rem 0.75rem;
+  text-align: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+.stage-checklist__summary strong { display: block; color: var(--color-accent); font-size: 1.1rem; }
+.stage-checklist__summary span { color: var(--color-text-muted); font-size: 0.75rem; }
+
+.stage-checklist__progress { height: 0.28rem; background: oklch(0.92 0.03 80); }
+.stage-checklist__progress span { display: block; height: 100%; border-radius: 99px; background: var(--color-accent); transition: width 180ms ease; }
+
+.stage-checklist__items { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0.5rem; }
+.stage-checklist__items li { list-style: none; }
+.stage-checklist__item { display: flex; width: 100%; align-items: center; gap: 0.75rem; padding: 0.95rem 1rem; border-radius: var(--radius-md); color: var(--color-text); text-align: left; transition: background 150ms ease, color 150ms ease; }
+.stage-checklist__item:hover { background: var(--color-accent-soft); }
+.stage-checklist__item svg { flex-shrink: 0; color: var(--color-text-muted); }
+.stage-checklist__item--complete { color: var(--color-text-muted); }
+.stage-checklist__item--complete span { text-decoration: line-through; }
+.stage-checklist__item--complete svg { color: oklch(0.58 0.14 145); }
+.stage-checklist__footer { display: flex; justify-content: flex-end; padding: 0.75rem 1.25rem; border-top: 1px solid var(--color-border); }
+
+@media (max-width: 640px) {
+  .stage-checklist__header { flex-direction: column; }
+  .stage-checklist__items { grid-template-columns: 1fr; }
+}

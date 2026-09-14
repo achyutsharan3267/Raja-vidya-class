@@ -2,7 +2,7 @@ import type { ClassRecord } from "../types/classRecord";
 import { formatDisplayDate, formatShlokaRange } from "./formatDate";
 import { formatVenue } from "./venues";
 
-const HEADERS = ["Date", "Venue", "Shloka", "Album Link", "Student Count"];
+const HEADERS = ["Date", "Venue", "Speaker Name", "Shloka", "Album Link", "Student Count"];
 
 /** Exports the complete stored class-record collection, not just filtered rows. */
 export async function exportClassRecords(records: ClassRecord[]) {
@@ -10,6 +10,7 @@ export async function exportClassRecords(records: ClassRecord[]) {
   const rows = records.map((record) => ({
     Date: formatDisplayDate(record.date),
     Venue: formatVenue(record.venue),
+    "Speaker Name": record.speakerName,
     Shloka: formatShlokaRange(record.shlokaFrom, record.shlokaTo),
     "Album Link": record.albumLink,
     "Student Count": record.studentCount ?? undefined,
@@ -19,7 +20,7 @@ export async function exportClassRecords(records: ClassRecord[]) {
 
   records.forEach((record, index) => {
     if (record.albumLink) {
-      const cell = worksheet[`D${index + 2}`];
+      const cell = worksheet[`E${index + 2}`];
       if (cell) cell.l = { Target: record.albumLink };
     }
   });
@@ -27,6 +28,7 @@ export async function exportClassRecords(records: ClassRecord[]) {
   worksheet["!cols"] = [
     { wch: 15 },
     { wch: 25 },
+    { wch: 24 },
     { wch: 16 },
     { wch: 48 },
     { wch: 16 },

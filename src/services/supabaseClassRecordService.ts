@@ -10,6 +10,7 @@ type ClassRecordRow = {
   id: string;
   date: string;
   venue: string;
+  speaker_name: string | null;
   shloka_from: string;
   shloka_to: string;
   album_link: string;
@@ -21,6 +22,7 @@ function toRecord(row: ClassRecordRow): ClassRecord {
     id: row.id,
     date: row.date,
     venue: row.venue,
+    speakerName: row.speaker_name ?? "",
     shlokaFrom: row.shloka_from,
     shlokaTo: row.shloka_to,
     albumLink: row.album_link,
@@ -32,6 +34,7 @@ function toRow(input: CreateClassRecordInput) {
   return {
     date: input.date,
     venue: input.venue,
+    speaker_name: input.speakerName,
     shloka_from: input.shlokaFrom,
     shloka_to: input.shlokaTo,
     album_link: input.albumLink,
@@ -47,7 +50,7 @@ export const supabaseClassRecordService: ClassRecordService = {
   async getClassRecords() {
     const { data, error } = await getSupabaseClient()
       .from("class_records")
-      .select("id, date, venue, shloka_from, shloka_to, album_link, student_count")
+      .select("id, date, venue, speaker_name, shloka_from, shloka_to, album_link, student_count")
       .order("date", { ascending: false });
     throwIfError(error);
     return (data as ClassRecordRow[]).map(toRecord);
@@ -57,7 +60,7 @@ export const supabaseClassRecordService: ClassRecordService = {
     const { data, error } = await getSupabaseClient()
       .from("class_records")
       .insert(toRow(input))
-      .select("id, date, venue, shloka_from, shloka_to, album_link, student_count")
+      .select("id, date, venue, speaker_name, shloka_from, shloka_to, album_link, student_count")
       .single();
     throwIfError(error);
     return toRecord(data as ClassRecordRow);
@@ -68,7 +71,7 @@ export const supabaseClassRecordService: ClassRecordService = {
       .from("class_records")
       .update(toRow(input))
       .eq("id", id)
-      .select("id, date, venue, shloka_from, shloka_to, album_link, student_count")
+      .select("id, date, venue, speaker_name, shloka_from, shloka_to, album_link, student_count")
       .single();
     throwIfError(error);
     return toRecord(data as ClassRecordRow);

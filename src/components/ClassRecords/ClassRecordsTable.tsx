@@ -84,6 +84,7 @@ export function ClassRecordsTable({
                 </button>
               </TableHead>
               <TableHead scope="col">Venue</TableHead>
+              <TableHead scope="col">Speaker</TableHead>
               <TableHead scope="col">Shloka</TableHead>
               <TableHead scope="col">Album</TableHead>
               <TableHead scope="col">
@@ -122,6 +123,7 @@ export function ClassRecordsTable({
                     {formatVenue(record.venue)}
                   </span>
                 </TableCell>
+                <TableCell data-label="Speaker">{record.speakerName}</TableCell>
                 <TableCell data-label="Shloka">
                   {formatShlokaRange(record.shlokaFrom, record.shlokaTo)}
                 </TableCell>
@@ -201,6 +203,10 @@ export function ClassRecordsTable({
               <div>
                 <dt>Venue</dt>
                 <dd>{formatVenue(record.venue)}</dd>
+              </div>
+              <div>
+                <dt>Speaker</dt>
+                <dd>{record.speakerName}</dd>
               </div>
               <div>
                 <dt>Shloka</dt>

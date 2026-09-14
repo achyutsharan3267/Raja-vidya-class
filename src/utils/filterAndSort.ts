@@ -35,6 +35,7 @@ export function filterClassRecords(
     if (search) {
       const searchable = [
         record.venue,
+        record.speakerName,
         formatShlokaRange(record.shlokaFrom, record.shlokaTo),
         formatDisplayDate(record.date),
         record.date,
